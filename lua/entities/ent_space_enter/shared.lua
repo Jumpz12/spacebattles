@@ -7,14 +7,15 @@ ENT.Category = "Space Battles"
 ENT.Author = "Jumpz"
 ENT.Contact	= "Jumpz#9217"
 ENT.Spawnable = false
+ENT.Editable =  true
 ENT.ShowPlayerInteraction = true
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 ENT.bNoPersist = true
 
 function ENT:SetupDataTables()
 
-    self:NetworkVar("Int", 0, "Zone")
-    self:NetworkVar("String", 0, "Planet")
+    self:NetworkVar("Int", 0, "Zone", {KeyName = "zone", Edit = { type = "Int", order = 1, min = 0, max = 100 } } )
+    self:NetworkVar("String", 0, "Planet", {KeyName = "planet", Edit = { type = "String", order = 2 } } )
 
 end
 
