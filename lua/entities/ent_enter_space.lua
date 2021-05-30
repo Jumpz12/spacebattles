@@ -8,20 +8,12 @@ ENT.Category = "Space Battles"
 ENT.Author = "Jumpz"
 ENT.Contact	= "Jumpz#9217"
 
---[[function ENT:SetupDataTables()
-
-    self:NetworkVar("Int", 0, "Zone", {KeyName = "zone", Edit = { type = "Int", order = 1, min = 0, max = 100 } } )
-    self:NetworkVar("String", 0, "Planet", {KeyName = "planet", Edit = { type = "String", order = 2 } } )
-
-end]]
-
 if (SERVER) then
 
     function ENT:Initialize()
 
         self:SetSolid(SOLID_BBOX)
-        self:SetCollisionBoundsWS(Vector(816, -1135, -170), Vector(703, -1023, -22))
-        print("Box made")
+        PrintTable(self:GetTable())
 
     end
 
