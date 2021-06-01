@@ -6,3 +6,7 @@ config.CreateNewEnt =  {
     ["pos1"] = 0,
     ["pos2"] = 0
 }
+
+config.debug = {
+    
+}

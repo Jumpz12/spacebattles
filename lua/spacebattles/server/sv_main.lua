@@ -1,3 +1,5 @@
+util.AddNetworkString("drawTriggerOutlines")
+
 hook.Add("PlayerSay", "createBox", function(ply, text)
         
         if text == "/pos1" or text == "/pos2" then
@@ -27,6 +29,11 @@ hook.Add("PlayerSay", "createBox", function(ply, text)
                 if ent:GetClass() == "ent_enter_space" then
 
                     print(ent:GetCollisionBounds())
+                    local vector1, vector2 = ent:GetCollisionBounds()
+                    net.Start("drawTriggerOutlines")
+                    net.WriteVector(vector1)
+                    net.WriteVector(vector2)
+                    net.Send(ply)
 
                 end
 
