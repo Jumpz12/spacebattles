@@ -20,6 +20,18 @@ hook.Add("PlayerSay", "createBox", function(ply, text)
             spacebattles.config.CreateNewEnt["pos1"] = 0
             spacebattles.config.CreateNewEnt["pos2"] = 0
 
+        elseif text == "/debug" then
+            
+            for index, ent in pairs(ents.GetAll()) do
+
+                if ent:GetClass() == "ent_enter_space" then
+
+                    print(ent:GetCollisionBounds())
+
+                end
+
+            end
+
         end
 end)
 
