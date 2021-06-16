@@ -28,11 +28,16 @@ hook.Add("PlayerSay", "createBox", function(ply, text)
 
                 if ent:GetClass() == "ent_enter_space" then
 
+                    --print(ent:GetCollisionBounds())
+                    --local vector1, vector2 = ent:GetCollisionBounds()
+
                     print(ent:GetCollisionBounds())
                     local vector1, vector2 = ent:GetCollisionBounds()
+                    local center = ent:WorldSpaceCenter()
                     net.Start("drawTriggerOutlines")
                     net.WriteVector(vector1)
                     net.WriteVector(vector2)
+                    net.WriteVector(center)
                     net.Send(ply)
 
                 end
