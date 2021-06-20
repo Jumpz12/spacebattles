@@ -2,9 +2,12 @@ local boxesToDraw = {}
 
 net.Receive("drawTriggerOutlines", function()
 
-    local vector1, vector2, center = net.ReadVector(), net.ReadVector(), net.ReadVector()
+    local vector1, vector2, center, debugon = net.ReadVector(), net.ReadVector(), net.ReadVector(), net.ReadBool()
 
-    
+    if debugon == true then
+        boxesToDraw = {}
+        return
+    end
 
     table.insert(boxesToDraw, {vector1, vector2, center})
 

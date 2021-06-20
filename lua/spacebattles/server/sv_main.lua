@@ -1,13 +1,15 @@
 util.AddNetworkString("drawTriggerOutlines")
 
 hook.Add("PlayerSay", "createBox", function(ply, text)
+
+        local args = string.Explode(" ", text)
         
         if text == "/pos1" or text == "/pos2" then
 
             spacebattles.config.CreateNewEnt[string.sub(text, 2, 5)] = ply:GetPos()
             ply:ChatPrint(string.sub(text, 2, 5) .. " set at position " .. tostring(ply:GetPos()))
 
-        elseif text == "/create" then
+        elseif args[1] == "/create" then
             
             if spacebattles.config.CreateNewEnt.pos1 == 0 or spacebattles.config.CreateNewEnt.pos2 == 0 then
                 ply:ChatPrint("You need to set both positions.")
@@ -23,7 +25,7 @@ hook.Add("PlayerSay", "createBox", function(ply, text)
             spacebattles.config.CreateNewEnt["pos2"] = 0
 
         elseif text == "/debug" then
-            
+
             for index, ent in pairs(ents.GetAll()) do
 
                 if ent:GetClass() == "ent_enter_space" then
@@ -38,11 +40,14 @@ hook.Add("PlayerSay", "createBox", function(ply, text)
                     net.WriteVector(vector1)
                     net.WriteVector(vector2)
                     net.WriteVector(center)
+                    net.WriteBool(spacebattles.config.debug[ply:SteamID64()])
                     net.Send(ply)
 
                 end
 
             end
+
+            spacebattles.config.debug[ply:SteamID64()] = not spacebattles.config.debug[ply:SteamID64()]
 
         end
 end)
