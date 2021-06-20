@@ -7,6 +7,12 @@ config.CreateNewEnt =  {
     ["pos2"] = 0
 }
 
+config.ExitList = {
+    
+}
+
 config.debug = {
     
 }
+
+config.TotalPortals = 0 -- Change to get number from DB/Saving
