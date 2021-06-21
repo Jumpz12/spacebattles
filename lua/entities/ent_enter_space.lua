@@ -6,7 +6,7 @@ ENT.Type = "brush"
 ENT.PrintName = "ent_enter_space"
 ENT.Category = "Space Battles"
 ENT.Author = "Jumpz"
-ENT.Contact	= "Jumpz#9217"
+ENT.Contact	= "Discord: Jumpz#9217"
 
 function ENT:SetupDataTables()
 
@@ -39,7 +39,7 @@ if (SERVER) then
 
     function ENT:Touch(entity)
 
-        entity:Kill()
+        entity:SetPos(spacebattles.config.ExitList[self:GetID()])
 
     end
 
