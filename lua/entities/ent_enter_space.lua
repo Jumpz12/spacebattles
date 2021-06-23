@@ -39,7 +39,19 @@ if (SERVER) then
 
     function ENT:Touch(entity)
 
+        local vehicleToTeleport = entity:lfsGetPlane()
+        entity:ExitVehicle()
+
+        vehicleToTeleport:StopEngine()
+
+        entity:SetModelScale(entity:GetModelScale() * 0.5, 0 ))
+        vehicleToTeleport:SetModelScale(entity:GetModelScale() * 0.5, 0 ))
+
         entity:SetPos(spacebattles.config.ExitList[self:GetID()])
+        vehicleToTeleport:SetPos(spacebattles.config.ExitList[self:GetID()])
+
+        entity:EnterVehicle(vehicleToTeleport)
+        vehicleToTeleport:StartEngine() 
 
     end
 
