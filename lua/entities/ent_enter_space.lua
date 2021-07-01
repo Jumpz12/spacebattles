@@ -10,8 +10,8 @@ ENT.Contact	= "Discord: Jumpz#9217"
 
 function ENT:SetupDataTables()
 
-    self:NetworkVar("Int", 0, "ID")
-    self:NetworkVar("String", 0, "Planet")
+    self:NetworkVar("Int", 0, "ID", {KeyName = "id", Edit = { type = "Int", order = 1, min = 0, max = 100 } } )
+    self:NetworkVar("String", 0, "Planet", {KeyName = "planet", Edit = { type = "String", order = 2 } } )
 
 end
 
@@ -24,6 +24,7 @@ if (SERVER) then
         PrintTable(self:GetTable())
 
     end
+    
 
     function ENT:StartTouch(entity)
 
@@ -33,25 +34,43 @@ if (SERVER) then
 
     function ENT:EndTouch(entity)
 
-        print(entity:Name() .. " has left the area")
+        if not entity:IsPlayer() then return end
+
+        if entity:lfsGetPlane() then
+
+            local vehicleToTeleport = entity:lfsGetPlane()
+
+            entity:SetEyeAngles(spacebattles.config.ExitList[self:GetID()][2])
+            vehicleToTeleport:SetAngles(spacebattles.config.ExitList[self:GetID()][2])
+
+            entity:SetModelScale(entity:GetModelScale() * 0.5, 0 )
+            vehicleToTeleport:SetModelScale(vehicleToTeleport:GetModelScale() * 0.5, 0 )
+
+            --entity:EnterVehicle(vehicleToTeleport:GetDriverSeat())
+            vehicleToTeleport:SetNotSolid(false)
+        
+        end
 
     end
 
     function ENT:Touch(entity)
 
-        local vehicleToTeleport = entity:lfsGetPlane()
-        entity:ExitVehicle()
+        if not entity:IsPlayer() then return end
 
-        vehicleToTeleport:StopEngine()
+        if entity:lfsGetPlane() then
+            local vehicleToTeleport = entity:lfsGetPlane()
+            --entity:ExitVehicle()
 
-        entity:SetModelScale(entity:GetModelScale() * 0.5, 0 ))
-        vehicleToTeleport:SetModelScale(entity:GetModelScale() * 0.5, 0 ))
+            --vehicleToTeleport:StopEngine()
+            vehicleToTeleport:SetNotSolid(true)
 
-        entity:SetPos(spacebattles.config.ExitList[self:GetID()])
-        vehicleToTeleport:SetPos(spacebattles.config.ExitList[self:GetID()])
+            entity:SetPos(spacebattles.config.ExitList[self:GetID()][1])
+            vehicleToTeleport:SetPos(spacebattles.config.ExitList[self:GetID()][1])
 
-        entity:EnterVehicle(vehicleToTeleport)
-        vehicleToTeleport:StartEngine() 
+            
+            --vehicleToTeleport:StartEngine()
+
+        end
 
     end
 

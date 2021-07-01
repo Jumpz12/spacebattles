@@ -36,7 +36,7 @@ hook.Add("PlayerSay", "createBox", function(ply, text)
                     ply:ChatPrint("You need to enter a Portal ID.")
                     return
                 end
-                spacebattles.config.ExitList[args[3]] = ply:GetPos()
+                spacebattles.config.ExitList[tonumber(args[3])] = {ply:GetPos(), ply:GetAngles()}
                 ply:ChatPrint("Exit point set at pos: " .. tostring(ply:GetPos()) .. " with ID: " .. args[3])
 
             end
